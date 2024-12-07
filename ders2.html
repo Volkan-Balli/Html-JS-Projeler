@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <title>Arama Kutusu</title>
+    </head>
+    <body>
+    <input type="text" id="ItemInput" placeholder="Bir öğe ekle">
+    <ul id="ItemList">
+        <li>Armut</li>
+        <li>Elma</li>
+        <li>Limon</li>
+    </ul>
+<!---------------------------------------------------------------------------------------------------------->
+<input type="text" name="" id="name">
+    <input type="text"  name = "" id = "surname">
+    <button id="ekle"> Ekle</button>
+
+    <table id="veriler" border ="1px">
+        <tr>
+            <th>Ad</th>
+            <th>soyad</th>
+        </tr>
+    </table>
+
+<!----------------------------------------------------------------------------------------------->
+ <h1 id ="timer">00:00:00</h1>
+ <button id="start"> Başlat</button>
+ <button id="stop"> Durdur</button>
+
+<!----------------------------------------------------------------------------------------------->
+    <h1 type="label" id="yor">0</h1>
+    <button id = yukselt> Arttır </button>
+    <button id = azalt> Azalt </button>
+<!----------------------------------------------------------------------------------------------->
+    <h2>Kelime Sayacı</h2>
+    
+    <textarea id="textArea" placeholder="Buraya yazı yazın..."></textarea>
+    <p>Kelime Sayısı: <span id="wordCount">0</span></p>
+<!----------------------------------------------------------------------------------------------->
+    <h1>Taş, Kağıt, Makas Oyunu</h1>
+
+    <button class="button" id="tas">Taş</button>
+    <button class="button" id="kagit">Kağıt</button>
+    <button class="button" id="makas">Makas</button>
+    <div class="result" id="result"></div>
+    <div class="result" id="computerChoice"></div>
+
+<script>
+        document.getElementById("ItemInput").addEventListener("input", function() {
+            const searchInput = this.value.toLowerCase(); 
+            const items = document.querySelectorAll("#ItemList li");  
+
+            items.forEach(item => {
+                if(item.innerText.toLowerCase().includes(searchInput)){  
+                    item.style.display = "block"; 
+                }
+                else{
+                    item.style.display = "none"; 
+                }
+            });
+        });
+/*----------------------------------------------------------------------------------------------*/
+        document.getElementById("yukselt").onclick = function() {
+            const yor = document.getElementById("yor");
+            yor.innerHTML = parseInt(yor.innerHTML) + 1;
+        }
+        document.getElementById("azalt").onclick = function() {
+            const yor = document.getElementById("yor");
+            yor.innerHTML = parseInt(yor.innerHTML) - 1;
+            if(parseInt(yor.innerHTML) < 0){
+                alert("Please")
+                yor.innerHTML = 0;
+            }
+        }
+/*----------------------------------------------------------------------------------------------------*/
+document.getElementById("ekle").addEventListener("click" , function(){
+
+const name = document.getElementById("name").value;
+const surname = document.getElementById("surname").value;
+
+if (name && surname){
+    const table = document.getElementById("veriler");
+    const newRow = document.createElement("tr");
+    const nameSatırı = document.createElement("td");
+    nameSatırı.innerText = name;
+    const surNameSatırı = document.createElement("td");
+    surNameSatırı.innerText = surname;
+
+    newRow.appendChild(nameSatırı);
+    newRow.appendChild(surNameSatırı);
+    table.appendChild(newRow);
+    document.getElementById("name").value = "";
+    document.getElementById("surname").value = "";
+}
+})
+/*----------------------------------------------------------------*/
+    let timer = 0;
+    let interval;
+    document.getElementById("start").addEventListener("click", function() {
+        if (!timer) { interval = setInterval(function() { 
+            interval ++;
+            document.getElementById("timer").innerText = "00:00:00";
+    },100);
+    }
+    document.getElementById("stop").addEventListener("click", function() {
+        clearInterval(interval);
+        timer = 0;
+    })
+    });   
+ /*----------------------------------------------------------------*/
+ document.getElementById("textArea").addEventListener("input", function() {
+            const text = document.getElementById("textArea").value;
+            const words = text.trim().split(/\s+/);
+            const wordCount = text.trim() === "" ? 0 : words.length;
+            document.getElementById("wordCount").innerText = wordCount;
+        });
+/*----------------------------------------------------------------*/
+ function computerChoice() {
+            const choices = ["taş", "kağıt", "makas"];
+            const randomIndex = Math.floor(Math.random() * 3);
+            return choices[randomIndex];
+        }
+        function determineWinner(userChoice, compChoice) {
+            if (userChoice === compChoice) {
+                return "Beraberlik!";
+            } else if (
+                (userChoice === "taş" && compChoice === "makas") ||
+                (userChoice === "kağıt" && compChoice === "taş") ||
+                (userChoice === "makas" && compChoice === "kağıt")
+            ) {
+                return "Kazandınız!";
+            } else {
+                return "Bilgisayar Kazandı!";
+            }
+        }
+
+        document.getElementById("tas").addEventListener("click", function() {
+            const userChoice = "taş";
+            const compChoice = computerChoice();
+            const result = determineWinner(userChoice, compChoice);
+            document.getElementById("result").innerText = `Siz: ${userChoice} - Sonuç: ${result}`;
+            document.getElementById("computerChoice").innerText = `Bilgisayar: ${compChoice}`;
+        });
+
+        document.getElementById("kagit").addEventListener("click", function() {
+            const userChoice = "kağıt";
+            const compChoice = computerChoice();
+            const result = determineWinner(userChoice, compChoice);
+            document.getElementById("result").innerText = `Siz: ${userChoice} - Sonuç: ${result}`;
+            document.getElementById("computerChoice").innerText = `Bilgisayar: ${compChoice}`;
+        });
+
+        document.getElementById("makas").addEventListener("click", function() {
+            const userChoice = "makas";
+            const compChoice = computerChoice();
+            const result = determineWinner(userChoice, compChoice);
+            document.getElementById("result").innerText = `Siz: ${userChoice} - Sonuç: ${result}`;
+            document.getElementById("computerChoice").innerText = `Bilgisayar: ${compChoice}`;
+        });
+    </script>        
+    
+       </script>
+    </body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id = "content">Merhaba Dünya!</div>
+<!---------------------------------------------------------------------------->
+        <div id = "greeting"></div>
+<!---------------------------------------------------------------------------->
+        <button id="changeColor">Rengi Değiştir</button>
+        <div id="box" style="width: 100px; height: 100px; background-color: blue;"></div>
+<!---------------------------------------------------------------------------->
+        <ul id="list">
+            <li> Öğre1</li>
+            <li> Öğre1</li>     
+        </ul>
+        <button id="addItem"> Öğe Ekle </button>
+<!--------------------------------------------------------------------------->
+        <input type = "text" id = "ItemInput" placeholder = "bir öğe ekle">
+        <button id = "addButton">Ekle</button>
+        <ul id="ItemList"></ul>
+
+<!--------------------------------------------------------------------------->
+    <input type = "text" id= "inputBox" placeholder= "Adınızı girin">
+    <p id = "output"></p>
+<!--------------------------------------------------------------------------->
+        <h2 id="text"> renk değiştirme</h2>
+        <button id = "colorButton"> renk değiştirme</button>
+<!---------------------------------------------------------------------------->
+        <h1>ZAZA</h1>
+        <input type = "text" id = "paragraf" placeholder = "bir öğe ekle">
+        <button id = "addParagraf">Ekle</button>
+        <div id = "custom"></div>
+<!---------------------------------------------------------------------------->
+        <button id = "colorkodu"> renk değiştirme</button>
+             
+<!-----------------------------------1---------------------------------------->
+        <script>
+            const element = document.getElementById("content");
+            element.style.color="blue";
+            element.textContent="Merhaba JavaScript!";
+/*-----------------------------------2--------------------------------------*/
+            const greeting = document.getElementById("greeting");
+            greeting.innerHTML = "<h1>Hoşgeldiniz!</h1>";
+/*-----------------------------------3--------------------------------------*/        
+            document.getElementById("changeColor").onclick = function(){
+                const box = document.getElementById("box");
+                box.style.backgroundColor = "green";
+            };
+/*-----------------------------------4--------------------------------------*/
+            document.getElementById("addItem").onclick = function(){
+                const newItem = document.createElement("li");
+                newItem.textContent = "Yeni Öğe";
+                document.getElementById("list").appendChild(newItem);
+            };
+/*-----------------------------------5--------------------------------------*/
+            document.getElementById("inputBox").addEventListener("input",function () {
+                const output = document.getElementById("output");
+                output.textContent = "Merhaba," + this.value;
+            })
+/*-----------------------------------6--------------------------------------*/
+            document.getElementById("addButton").onclick = function(){
+                const input = document.getElementById("ItemInput");
+                const newItem = document.createElement("li");
+                newItem.textContent = input.value;
+                const list = document.getElementById("ItemList");
+                //Silme düğmesi:
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "Sil";
+                deleteButton.onclick = function(){
+                    list.removeChild(newItem);
+                };
+                newItem.appendChild(deleteButton);
+                list.appendChild(newItem);
+                input.value = "";
+                
+            };
+/*-----------------------------------7--------------------------------------*/
+            document.getElementById("colorButton").onclick = function() {
+                const text = document.getElementById("text");
+                text.style.color = "red";
+            }
+/*-----------------------------------8--------------------------------------*/
+            document.getElementById("addParagraf").onclick = function(){
+                const paragraf = document.getElementById("paragraf");
+                const newItem = document . createElement("p");
+                newItem.textContent = paragraf.value;
+                const custom = document.getElementById("custom");
+                custom.appendChild(newItem);
+                paragraf.value = ""
+            };
+/*-----------------------------------9---------------------------------------*/ 
+            document.getElementById("colorkodu").onclick = function(){
+                const randomColor = "#" + Math.floor(Math.random () * 16777215).toString();
+                console.log(randomColor);
+                document.body.style.backgroundColor = randomColor;
+            }
+        </script>
+    </body>
+</html>
